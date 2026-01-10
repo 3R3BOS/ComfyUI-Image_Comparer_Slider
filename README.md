@@ -4,9 +4,12 @@
 
 by 3R3BOS
 
-The professional way to compare up to 20 images in ComfyUI.
+The professional way to compare up to
 
-<!-- REMPLACE LA LIGNE CI-DESSOUS PAR LE LIEN DE TA VIDEO APRES L'AVOIR GLISSÉE SUR GITHUB -->
+
+ 20 images in ComfyUI.
+
+https://github.com/user-attachments/assets/91c2eb3d-796f-48b3-8654-32eca8a64ad9
 
 </div>
 
