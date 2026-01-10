@@ -18,7 +18,7 @@ Streamline your workflow with smart input management and zero-latency scrubbing.
 
 ## Overview
 
-The **Image Comparer Slider** addresses the clutter of traditional comparison workflows. It replaces manual wiring and gallery reloading with a single, intelligent node that adapts to your graph.
+The **Image Comparer Slider** addresses the clutter of traditional comparison workflows.
 
 | Core Capabilities | |
 | :--- | :--- |
