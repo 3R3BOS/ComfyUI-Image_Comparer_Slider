@@ -8,7 +8,7 @@
 <br>
 
 **The essential toolkit to master control and visualization in your ComfyUI workflows.**
-Created to simplify complex interactions, this **evolving suite** brings professional "Human-in-the-Loop" tools and clear visualization to your generation process.
+Created to simplify complex interactions, this **evolving suite** brings professional "Human-in-the-Loop" tools and zero-latency visualization to your generation process.
 
 [Installation](#installation) — [Report Bug](https://github.com/3R3BOS/ComfyUI-3R3BOS-Pack/issues)
 
@@ -28,7 +28,7 @@ The Visual Gatekeeper brings a true "Pause" button to ComfyUI. It halts the work
 * **Clear UX:** Large preview with prominent **APPROVE** (Green) and **REJECT** (Red) buttons.
 * **Resource Saving:** Instantly cancels the rest of the workflow if the image is rejected.
 
-> **Node Name:** `Visual Gatekeeper`
+> **Node Name:** `Visual Gatekeeper (HitL)`
 > **Menu:** `3R3BOS/Logic`
 
 ---
@@ -46,12 +46,14 @@ A high-performance slider to compare Checkpoints, LoRAs, or "Before/After" Upsca
 
 <br>
 
-## 🏗️ Installation
+## Installation
 
 ### Option A: ComfyUI Manager (Recommended)
 1.  Open **ComfyUI Manager**.
 2.  Search for: `3R3BOS Pack`
 3.  Install and Restart.
+
+*(Note: If the pack is not yet in the official list, use "Install via Git URL" with the link below)*
 
 ### Option B: Manual Clone
 To install via terminal:
