@@ -33,7 +33,7 @@ The Visual Gatekeeper brings a true "Pause" button to ComfyUI. It halts the work
 * **Clear UX:** Large preview with prominent **APPROVE** (Green) and **REJECT** (Red) buttons.
 * **Resource Saving:** Instantly cancels the rest of the workflow if the image is rejected.
 
-> **Node Name:** `Visual Gatekeeper (HitL)`
+> **Node Name:** `Visual Gatekeeper`
 > **Menu:** `3R3BOS/Logic`
 
 ---
