@@ -1,4 +1,4 @@
-# ComfyUI Image Comparer Slider
+# ComfyUI 3R3BOS Pack
 
 <div align="center">
 
@@ -7,49 +7,55 @@
 
 <br>
 
-**A seamless, high-performance image comparison node designed for efficiency.**
-Streamline your workflow with smart input management and zero-latency scrubbing.
+**The essential toolkit to master control and visualization in your ComfyUI workflows.**
+Created to simplify complex interactions, this **evolving suite** brings professional "Human-in-the-Loop" tools and clear visualization to your generation process.
 
-[View Demo](#demo) — [Installation](#installation) 
+[Installation](#installation) — [Report Bug](https://github.com/3R3BOS/ComfyUI-3R3BOS-Pack/issues)
 
 </div>
 
 <br>
 
-## Overview
+## 📦 The Collection
 
-The **Image Comparer Slider** addresses the clutter of traditional comparison workflows. **It is the perfect tool for users who rely heavily on Refiners and Upscalers**, allowing you to check subtle differences instantly.
+This pack is designed to grow. Currently, it includes two core tools focused on UX and Efficiency.
 
-It replaces manual wiring and gallery reloading with a single, intelligent node that adapts to your graph.
+### 1. Visual Gatekeeper (Logic)
+**"Stop wasting GPU time on bad generations."**
+The Visual Gatekeeper brings a true "Pause" button to ComfyUI. It halts the workflow after an initial generation, allowing you to approve or reject the image before sending it to expensive Refiners or Upscalers.
 
-| Core Capabilities | |
-| :--- | :--- |
-| **Dynamic Inputs** | Slots are generated on-demand. Connect a wire, and a new slot appears automatically. |
-| **Auto-Compaction** | Disconnecting a source automatically reorganizes the inputs to remove gaps. |
-| **Native Integration** | A custom-rendered slider within the node allowing for precise "Before/After" analysis. |
-| **Performance** | Built-in Javascript caching ensures 60fps scrubbing with no server round-trips. |
+* **Human-in-the-Loop:** Grants you manual control over the generation pipeline.
+* **Clear UX:** Large preview with prominent **APPROVE** (Green) and **REJECT** (Red) buttons.
+* **Resource Saving:** Instantly cancels the rest of the workflow if the image is rejected.
 
----
-
-## Demo
-
-https://github.com/user-attachments/assets/4fa94f00-4c20-4478-9fbd-3ca0467015da
-
-https://github.com/user-attachments/assets/b46022a7-f60f-417d-9e4b-d4306e893815
+> **Node Name:** `Visual Gatekeeper`
+> **Menu:** `3R3BOS/Logic`
 
 ---
 
+### 2. Image Comparer Slider (Visualization)
+**"The ultimate A/B testing tool."**
+A high-performance slider to compare Checkpoints, LoRAs, or "Before/After" Upscaling results with zero latency.
 
+* **Dynamic Inputs:** Automatically creates up to 20 input slots as you connect wires.
+* **Zero-Lag:** Client-side caching ensures 60fps scrubbing.
+* **Auto-Compaction:** Smart inputs reorganize themselves if you disconnect a source.
 
-### Option A: ComfyUI Manager
-The recommended way to install.
-1.  Open **ComfyUI Manager**
-2.  Search for: `Image Comparer Slider`
-3.  Install and Restart
+> **Node Name:** `Image Comparer Slider`
+> **Menu:** `3R3BOS/Image`
+
+<br>
+
+## 🏗️ Installation
+
+### Option A: ComfyUI Manager (Recommended)
+1.  Open **ComfyUI Manager**.
+2.  Search for: `3R3BOS Pack`
+3.  Install and Restart.
 
 ### Option B: Manual Clone
 To install via terminal:
-## Installation
+
 ```bash
 cd ComfyUI/custom_nodes/
-git clone [https://github.com/3R3BOS/ComfyUI-Image_Comparer_Slider.git](https://github.com/3R3BOS/ComfyUI-Image_Comparer_Slider.git)
+git clone [https://github.com/3R3BOS/ComfyUI-3R3BOS-Pack.git](https://github.com/3R3BOS/ComfyUI-3R3BOS-Pack.git)
