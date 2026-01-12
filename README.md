@@ -2,9 +2,11 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-1.0.1-blue?style=for-the-badge)
 ![Registry](https://img.shields.io/badge/Comfy_Registry-er3bos-black?style=for-the-badge&logo=comfyui)
 ![License](https://img.shields.io/badge/license-MIT-black?style=for-the-badge)
+
+![3R3BOSicon](https://github.com/user-attachments/assets/92fe4504-0521-4685-bbe3-5774cee78dad)
 
 <br>
 
