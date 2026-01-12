@@ -55,7 +55,7 @@ https://github.com/user-attachments/assets/f10d6c4d-be38-40c9-9cec-135250451fa9
 
 <br>
 
-## 🚀 Installation
+##  Installation
 
 ### Option A: ComfyUI Manager (Recommended)
 1. Open **ComfyUI Manager** in your browser.
