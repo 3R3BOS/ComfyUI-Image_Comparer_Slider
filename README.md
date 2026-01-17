@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.0.2-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-1.0.3-blue?style=for-the-badge)
 ![Registry](https://img.shields.io/badge/Comfy_Registry-er3bos-black?style=for-the-badge&logo=comfyui)
 ![License](https://img.shields.io/badge/license-MIT-black?style=for-the-badge)
 
@@ -82,6 +82,9 @@ git clone https://github.com/3R3BOS/ComfyUI-3R3BOS-Pack.git
 <br>
 
 ## Update Log
+
+### v1.0.3
+*   **BUGFIX:** Batch Selector now correctly scales images using 'contain' mode, preventing edge cropping on non-square images (Fixes Issue #3).
 
 ### v1.0.2
 *   **NEW NODE:** Introduced `Batch Selector`. A powerful replacement for the deprecated Visual Gatekeeper.
