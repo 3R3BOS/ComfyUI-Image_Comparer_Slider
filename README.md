@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.0.4-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-1.0.5-blue?style=for-the-badge)
 ![Registry](https://img.shields.io/badge/Comfy_Registry-er3bos-black?style=for-the-badge&logo=comfyui)
 ![License](https://img.shields.io/badge/license-MIT-black?style=for-the-badge)
 
@@ -103,6 +103,11 @@ git clone https://github.com/3R3BOS/ComfyUI-3R3BOS-Pack.git
 <br>
 
 ## Update Log
+### v1.0.5
+*   **CRITICAL FIX:** Solved `Batch Selector` freezing issue when switching browser tabs during generation.
+*   **ROBUSTNESS:** Implemented "Heartbeat" mechanism to ensure the UI never loses connection with the backend.
+*   **STABILITY:** Added crash protection for corrupt or incomplete images in the preview grid.
+
 
 ### v1.0.4
 *   **NEW NODE:** Introduced **Aspect Ratio Master**. The ultimate tool for calculating optimal resolutions for SDXL, Flux, Wan, LTX, Etc.
