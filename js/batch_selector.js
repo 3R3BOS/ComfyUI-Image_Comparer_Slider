@@ -25,6 +25,23 @@ app.registerExtension({
                 cancel: { text: "CANCEL", hover: false },
                 confirm: { text: "CONFIRM", hover: false }
             };
+
+            // FIX: Force redraw when tab becomes visible to handle background throttling issues
+            this.onVisibilityChange = () => {
+                if (document.visibilityState === "visible") {
+                    this.setDirtyCanvas(true);
+                }
+            };
+            document.addEventListener("visibilitychange", this.onVisibilityChange);
+        };
+
+        // Cleanup listener when node is removed (optional but good practice)
+        const onRemoved = nodeType.prototype.onRemoved;
+        nodeType.prototype.onRemoved = function () {
+            if (onRemoved) onRemoved.apply(this, arguments);
+            if (this.onVisibilityChange) {
+                document.removeEventListener("visibilitychange", this.onVisibilityChange);
+            }
         };
 
         const onDrawForeground = nodeType.prototype.onDrawForeground;
@@ -61,83 +78,93 @@ app.registerExtension({
 
             this.imageRects = [];
 
-            this.imagePaths.forEach((path, i) => {
-                const col = i % cols;
-                const row = Math.floor(i / cols);
+            // Safely draw images
+            try {
+                this.imagePaths.forEach((path, i) => {
+                    const col = i % cols;
+                    const row = Math.floor(i / cols);
 
-                const x = contentX + (col * (cellW + margin));
-                const y = contentY + (row * (cellH + margin));
+                    const x = contentX + (col * (cellW + margin));
+                    const y = contentY + (row * (cellH + margin));
 
-                this.imageRects.push({ i, x, y, w: cellW, h: cellH });
+                    this.imageRects.push({ i, x, y, w: cellW, h: cellH });
 
-                // Clip Container
-                ctx.save();
-                ctx.beginPath();
-                ctx.roundRect(x, y, cellW, cellH, 6); // Smoother radius
-                ctx.clip();
-
-                // Background (Darker/Sober)
-                ctx.fillStyle = "#151515";
-                ctx.fillRect(x, y, cellW, cellH);
-
-                // Image Render
-                // Image Render
-                const img = this.images[i];
-                if (img && img.complete && img.width > 0) {
-                    const imgRatio = img.width / img.height;
-                    const cellRatio = cellW / cellH;
-                    let dx, dy, dw, dh;
-
-                    if (imgRatio > cellRatio) {
-                        // Image is wider than cell -> fit width
-                        dw = cellW;
-                        dh = cellW / imgRatio;
-                        dx = x;
-                        dy = y + (cellH - dh) / 2;
-                    } else {
-                        // Image is taller than cell -> fit height
-                        dh = cellH;
-                        dw = cellH * imgRatio;
-                        dy = y;
-                        dx = x + (cellW - dw) / 2;
-                    }
-                    ctx.drawImage(img, 0, 0, img.width, img.height, dx, dy, dw, dh);
-                }
-                ctx.restore();
-
-                // Selection Overlay (CLASSY STYLE)
-                if (this.selectedIndices.has(i)) {
-                    // Border: White, Thin, Elegant
-                    ctx.lineWidth = 2;
-                    ctx.strokeStyle = "#e0e0e0";
-                    ctx.strokeRect(x, y, cellW, cellH);
-
-                    // Subtle outer glow/shadow for separation
-                    // ctx.shadowColor = "black"; ctx.shadowBlur = 4;
-
-                    // Checkmark Badge: Minimalist Square or Circle in corner
-                    const badgeSize = 20;
-                    const bx = x + cellW - badgeSize - 6;
-                    const by = y + 6;
-
+                    // Clip Container
+                    ctx.save();
                     ctx.beginPath();
-                    ctx.roundRect(bx, by, badgeSize, badgeSize, 4);
-                    ctx.fillStyle = "#e0e0e0"; // Classy Light Gray
-                    ctx.fill();
+                    ctx.roundRect(x, y, cellW, cellH, 6); // Smoother radius
+                    ctx.clip();
 
-                    ctx.fillStyle = "#111"; // Dark Text
-                    ctx.font = "bold 12px Arial";
-                    ctx.textAlign = "center";
-                    ctx.textBaseline = "middle";
-                    ctx.fillText("✓", bx + badgeSize / 2, by + badgeSize / 2 + 1);
-                } else {
-                    // Unselected: Slight dimmed border or nothing?
-                    // Let's do nothing for maximum cleanness, or a very faint border
-                    // ctx.strokeStyle = "#222"; ctx.lineWidth=1; ctx.strokeRect(x,y,cellW,cellH);
-                }
-            });
+                    // Background (Darker/Sober)
+                    ctx.fillStyle = "#151515";
+                    ctx.fillRect(x, y, cellW, cellH);
+
+                    // Image Render
+                    const img = this.images[i];
+                    if (img && img.complete && img.width > 0) {
+                        const imgRatio = img.width / img.height;
+                        const cellRatio = cellW / cellH;
+                        let dx, dy, dw, dh;
+
+                        if (imgRatio > cellRatio) {
+                            // Image is wider than cell -> fit width
+                            dw = cellW;
+                            dh = cellW / imgRatio;
+                            dx = x;
+                            dy = y + (cellH - dh) / 2;
+                        } else {
+                            // Image is taller than cell -> fit height
+                            dh = cellH;
+                            dw = cellH * imgRatio;
+                            dy = y;
+                            dx = x + (cellW - dw) / 2;
+                        }
+                        ctx.drawImage(img, 0, 0, img.width, img.height, dx, dy, dw, dh);
+                    } else if (img && img.broken) {
+                        // Broken image placeholder
+                        ctx.fillStyle = "#331111";
+                        ctx.fillRect(x, y, cellW, cellH);
+                        ctx.fillStyle = "#cc5555";
+                        ctx.font = "10px Arial";
+                        ctx.textAlign = "center";
+                        ctx.fillText("Error", x + cellW / 2, y + cellH / 2);
+                    }
+                    ctx.restore();
+
+                    // Selection Overlay (CLASSY STYLE)
+                    if (this.selectedIndices.has(i)) {
+                        // Border: White, Thin, Elegant
+                        ctx.lineWidth = 2;
+                        ctx.strokeStyle = "#e0e0e0";
+                        ctx.strokeRect(x, y, cellW, cellH);
+
+                        // Checkmark Badge: Minimalist Square or Circle in corner
+                        const badgeSize = 20;
+                        const bx = x + cellW - badgeSize - 6;
+                        const by = y + 6;
+
+                        ctx.beginPath();
+                        ctx.roundRect(bx, by, badgeSize, badgeSize, 4);
+                        ctx.fillStyle = "#e0e0e0"; // Classy Light Gray
+                        ctx.fill();
+
+                        ctx.fillStyle = "#111"; // Dark Text
+                        ctx.font = "bold 12px Arial";
+                        ctx.textAlign = "center";
+                        ctx.textBaseline = "middle";
+                        ctx.fillText("✓", bx + badgeSize / 2, by + badgeSize / 2 + 1);
+                    }
+                });
+            } catch (error) {
+                console.error("Batch Selector: Error rendering images", error);
+                // Draw error message on canvas so user knows what happened
+                ctx.fillStyle = "red";
+                ctx.font = "12px Arial";
+                ctx.fillText("Render Error", 10, 10);
+            }
 
             // Buttons (Footer) - SOBER STYLE
+            // Drawn outside the try-catch for images so they always appear
             const btnGap = 8;
             const totalBtnW = this.size[0] - (margin * 2);
             const unit = (totalBtnW - (btnGap * 3)) / 6;
@@ -266,6 +293,17 @@ app.registerExtension({
             const node = app.graph.getNodeById(id);
             if (!node) return;
 
+            // DEDUPLICATION: Check if we are already displaying this batch
+            // If images are identical, just ensure canvas is dirty and return
+            // This prevents resetting selection when the backend resends the event (heartbeat)
+            if (node.imagePaths && node.imagePaths.length === images.length) {
+                const isSame = node.imagePaths.every((path, index) => path === images[index]);
+                if (isSame) {
+                    node.setDirtyCanvas(true);
+                    return;
+                }
+            }
+
             node.imagePaths = images;
             node.images = new Array(images.length);
             node.selectedIndices.clear();
@@ -274,6 +312,10 @@ app.registerExtension({
                 const img = new Image();
                 img.src = api.apiURL(`/view?filename=${f}&type=temp`);
                 img.onload = () => node.setDirtyCanvas(true);
+                img.onerror = () => {
+                    img.broken = true;
+                    node.setDirtyCanvas(true);
+                }
                 node.images[i] = img;
             });
 
